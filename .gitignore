@@ -1,0 +1,58 @@
+Flutter & Dart specific
+.darttool/
+.packages
+.pub-cache/
+.pub/
+build/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/Flutter/Flutter.xcframework
+ios/ServiceDefinitions.json
+android/.gradle/
+android/captures/
+android/app/build/
+android/local.properties
+
+IntelliJ related
+.idea/
+*.iml
+*.ipr
+*.iws
+
+VS Code related
+.vscode/
+*.code-workspace
+
+Obsolete
+*.swp
+*.swo
+
+macOS specific
+.DSStore
+
+Xcode related
+DerivedData/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+
+Python related
+*.pyc
+__pycache/
+
+Windows related
+Thumbs.db
+desktop.ini
+
+Temporary files
+*.tmp
+*.temp
+*.log
+
+Local directories and logs
+.hive/
