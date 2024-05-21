@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:lastproject/Pages/card/cart_history.dart';
 import 'package:lastproject/Pages/home/Welcome_Page.dart';
 import 'package:lastproject/data/api/Controllers/card_controller.dart';
-import 'package:lastproject/data/api/Controllers/user_controller.dart';
 import 'package:lastproject/routes/route_helper.dart';
 import 'package:lastproject/utils/colors.dart';
 import 'package:lastproject/utils/demesion.dart';

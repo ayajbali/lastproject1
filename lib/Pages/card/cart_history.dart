@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:lastproject/Pages/Books/app_icon.dart';
+import 'package:lastproject/Pages/card/card_page.dart';
 import 'package:lastproject/base/empty_page.dart';
 import 'package:lastproject/data/api/Controllers/card_controller.dart';
 import 'package:lastproject/models/cart_model.dart';
@@ -67,25 +68,30 @@ class CartHistory extends StatelessWidget {
       body: Column(
         children: [
           // Header 
-        Container(
-            height: Dimensions.heigth10*10,
+          Container(
+            height: Dimensions.heigth10 * 10,
             color: AppColors.mainColor,
             width: double.maxFinite,
-            padding: EdgeInsets.only(top: 45), // You can reduce this padding to move the entire row up.
+            padding: EdgeInsets.only(top: 45), // Adjust padding as necessary
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start, // This aligns the children to the start of the column.
-                  mainAxisSize: MainAxisSize.min, // This makes the column only as tall as its children need.
+                Row(
                   children: [
-                    BigText("Historique", fontWeight: FontWeight.bold, color: Colors.white, size: 20),
-                  ],
-                ),
-                AppIcon(icon: Icons.shopping_cart_outlined),
-              ],
-            ),
-          ),
+      
+          SizedBox(width: 10), // Adjust this value for the desired space between the icon and the text
+          BigText("Historique", fontWeight: FontWeight.bold, color: Colors.white, size: 20),
+        ],
+      ),
+      GestureDetector(
+        onTap: (){
+         Get.to(()=>CartPage());
+        },
+        child: AppIcon(icon: Icons.shopping_cart_outlined, backgroundColor: AppColors.mainColor, iconColor: Colors.white, size: Dimensions.iconSize24)),
+    ],
+  ),
+),
+
 
 
 

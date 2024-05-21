@@ -175,7 +175,66 @@ void initState() {
     ) : CircularProgressIndicator();
     colors:AppColors.mainColor;
 
-})
+
+
+}),
+
+ GetBuilder<PopularController>(
+          builder: (controller) {
+            List<Products> displayList = controller.isSearchMode ? controller.searchResults : controller.productsList;
+
+            return displayList.isNotEmpty ? ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: displayList.length,
+              itemBuilder: (context, index) {
+                Products product = displayList[index];
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getrecomendedBooks(index)); // Make sure to use the correct routing
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.heigth10),
+                    child: Row(
+                      children: [
+                        // Image section
+                        Container(
+                          height: Dimensions.listViewImgSize,
+                          width: Dimensions.listViewImgSize,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimensions.radius20),
+                            color: Colors.white38,
+                            /*image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img),
+                            ),*/
+                          ),
+                        ),
+                        // Text section
+                        Expanded(
+                          child: Container(
+                            height: Dimensions.listViewTextConSize,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(Dimensions.radius20),
+                                bottomRight: Radius.circular(Dimensions.radius20),
+                              ),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
+                              child: AppColumn(text: product.name ?? "No name available"),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ) : Center(child: Text("No products found"));
+          },
+        ),
 
         
 

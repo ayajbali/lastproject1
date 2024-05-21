@@ -1,8 +1,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lastproject/data/api/Controllers/user_controller.dart';
-
+import 'package:lastproject/Pages/Auth/SignUpPage.dart';
+import 'package:lastproject/data/api/Controllers/auth_api.dart';
+ 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 

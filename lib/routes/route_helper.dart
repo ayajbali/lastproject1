@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:lastproject/Pages/Auth/SignIn.dart';
+import 'package:lastproject/Pages/Auth/SignUpPage.dart';
 import 'package:lastproject/Pages/Books/Books_Details.dart';
 import 'package:lastproject/Pages/Books/recommanded_book_details.dart';
 import 'package:lastproject/Pages/Contact/contact.dart';
@@ -20,6 +22,7 @@ class RouteHelper {
   static const String cartHistoryPage = "/cart_history_page";
   static const String splashPage = "/splash_page";
   static const String SignIn="/sign-in";
+  static const String SignUp="/sign-up";
   static const String contactPage ="/contact_page";
 
   static const String addAddress = "/add_Address";
@@ -31,6 +34,8 @@ class RouteHelper {
   static String getCartHistoryPage()=>'$cartHistoryPage';
   static String getSplashPage()=>'$splashPage';
   static String getAddressPage()=>'$addAddress';
+  static String getSignInPage()=>'$SignIn';
+  static String getSignUpPage()=>'$SignUp';
   static String getcontactPage()=>'$contactPage';
   
 
@@ -76,6 +81,22 @@ class RouteHelper {
       transition: Transition.fadeIn,
       ),
       
+
+      GetPage(
+      name: SignIn,
+      page: ()=>LoginPage (),
+      transition: Transition.fadeIn,
+      ),
+
+      GetPage(
+      name: SignUp,
+      page: ()=>SignUpPageFirst(),
+      transition: Transition.fadeIn,
+      ),
+
+
+
+
       GetPage(
       name: addAddress,
       page: (){

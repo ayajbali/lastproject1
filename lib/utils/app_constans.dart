@@ -17,7 +17,6 @@ class AppConstants{
     static const String POPULAR_PRODUCT_URI="/Books";
     static const String RECOMMANDED_PRODUCTS_URI="/recommended";
     static const String UPLOAD_URL="/uploads/";
-
     static const String REGISTRATION_URL="/auth";
 
 

@@ -1,30 +1,108 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
+import 'package:flutter/widgets.dart';
+import 'package:lastproject/utils/app_constans.dart';
 
-import 'package:get/get.dart';
-import 'package:lastproject/data/api/reposetory/auth_repo.dart';
-import 'package:lastproject/models/response_model.dart';
-import 'package:lastproject/models/sign_up_model.dart';
+enum AuthStatus {
+  uninitialized,
+  authenticated,
+  unauthenticated,
+}
 
-class AuthController extends GetxController implements GetxService{
-  final AuthRepo authRepo;
-  AuthController({
-    required this.authRepo
-  });
+class AuthAPI extends ChangeNotifier {
+  Client client = Client();
+  late final Account account;
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  late User _currentUser;
 
-  Future<ResponseModel>registration(SignUpBody signUpBody) async {
-    _isLoading=true;
-    Response response = await authRepo.registration(signUpBody);
-    late ResponseModel responseModel;
-    if(response.statusCode==200){
-      authRepo.saveUserToken(response.body["token"]);
-      responseModel=ResponseModel(true, response.body["token"]);
-    }else{
-      responseModel=ResponseModel(false, response.statusText!);
+  AuthStatus _status = AuthStatus.uninitialized;
+
+  // Getter methods
+  User get currentUser => _currentUser;
+  AuthStatus get status => _status;
+  String? get username => _currentUser?.name;
+  String? get email => _currentUser?.email;
+  String? get userid => _currentUser?.$id;
+
+  // Constructor
+  AuthAPI() {
+    init();
+    loadUser();
+  }
+
+  // Initialize the Appwrite client
+  init() {
+    client
+        .setEndpoint(AppConstants.APPWRITE_URL)
+        .setProject(AppConstants.APPWRITE_PROJECT_ID)
+        .setSelfSigned();
+    account = Account(client);
+  }
+
+  loadUser() async {
+    try {
+      final user = await account.get();
+      _status = AuthStatus.authenticated;
+      _currentUser = user;
+    } catch (e) {
+      _status = AuthStatus.unauthenticated;
+    } finally {
+      notifyListeners();
     }
-    _isLoading=true;
-    update();
-    return responseModel;
+  }
+
+  Future<User> createUser(
+      {required String username, required String email, required String password}) async {
+    try {
+      final user = await account.create(
+          userId: ID.unique(),
+          email: email,
+          password: password,
+          name: username);
+      return user;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<Session> createEmailSession(
+      {required String email, required String password}) async {
+    try {
+      final session =
+          await account.createEmailSession(email: email, password: password);
+      _currentUser = await account.get();
+      _status = AuthStatus.authenticated;
+      return session;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  signInWithProvider({required String provider}) async {
+    try {
+      final session = await account.createOAuth2Session(provider: provider);
+      _currentUser = await account.get();
+      _status = AuthStatus.authenticated;
+      return session;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  signOut() async {
+    try {
+      await account.deleteSession(sessionId: 'current');
+      _status = AuthStatus.unauthenticated;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<Preferences> getUserPreferences() async {
+    return await account.getPrefs();
+  }
+
+  updatePreferences({required String bio}) async {
+    return account.updatePrefs(prefs: {'bio': bio});
   }
 }

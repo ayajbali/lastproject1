@@ -13,6 +13,9 @@ class PopularController extends GetxController {
     List<Products> _popularProductList = []; 
     List<Products> get popularProductList => _popularProductList;
     late cartController _cart; 
+    List<Products> searchResults = [];
+  bool isSearchMode = false;  
+   List<Products> productsList = [];
      
       
     bool _isLoaded=false;
@@ -120,5 +123,21 @@ class PopularController extends GetxController {
 List<Cart> get getItems{
   return _cart.getItems;
 }
+
+
+ void searchProduct(String query) {
+    if (query.isEmpty) {
+      searchResults = productsList;
+      isSearchMode = false;  // Set to false when the query is empty
+    } else {
+      searchResults = productsList.where((product) {
+        return product.name!.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+      isSearchMode = true;  // Set to true when actively searching
+    }
+    update();  // Notify listeners to rebuild the UI
+  }
 }
+
+
 
