@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:lastproject/Pages/Account/account_page.dart';
 import 'package:lastproject/Pages/card/cart_history.dart';
 import 'package:lastproject/Pages/home/Welcome_Page.dart';
 import 'package:lastproject/data/api/Controllers/card_controller.dart';
@@ -22,7 +23,7 @@ class AddAddressPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
         automaticallyImplyLeading: false,
-        title: Center(child: BigText("Commande confirmee", fontWeight: FontWeight.bold, size: 24, color: Colors.white)),
+        title: Center(child: BigText("Confirmer vos donnees", fontWeight: FontWeight.bold, size: 24, color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -107,26 +108,41 @@ class AddAddressPage extends StatelessWidget {
                   ),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  
-                    GestureDetector(
-                      onTap: () {
-                        
-                        Get.to(()=>WelcomePage());
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(Dimensions.width20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radius20),
-                          color: AppColors.mainColor,
-                        ),
-                        child: BigText("Revenez a l'acceuil",
-                            fontWeight: FontWeight.w700, color: Colors.white , size: 17,),
-                      ),
-                    ),
-                  ],
-                ),
+  mainAxisAlignment: MainAxisAlignment.spaceBetween, // This will place space between the two buttons
+  children: [
+    GestureDetector(
+      onTap: () {
+        cartController.addToHistory();
+        Get.to(() => WelcomePage());
+      },
+      child: Container(
+        padding: EdgeInsets.all(Dimensions.width20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimensions.radius20),
+          color: AppColors.mainColor,
+        ),
+        child: BigText("Confirmer",
+          fontWeight: FontWeight.w700, color: Colors.white, size: 17),
+      ),
+    ),
+    GestureDetector(
+  onTap: () {
+    Get.to(() => AccountPage(showFloatingActionButton: true));
+  },
+  child: Container(
+    padding: EdgeInsets.all(Dimensions.width20),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(Dimensions.radius20),
+      color: AppColors.mainColor,
+    ),
+    child: BigText("Editer mes coordonnées",
+      fontWeight: FontWeight.w700, color: Colors.white, size: 17),
+  ),
+),
+
+  ],
+),
+
               ),
             ],
           );

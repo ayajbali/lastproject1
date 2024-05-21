@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:lastproject/Pages/Auth/LoginPage.dart';
 import 'package:lastproject/Pages/Books/app_icon.dart';
+import 'package:lastproject/Pages/card/card_page.dart';
 import 'package:lastproject/utils/colors.dart';
 import 'package:lastproject/utils/demesion.dart';
 import 'package:lastproject/widgets/account_widget.dart';
@@ -11,7 +12,8 @@ import 'package:lastproject/widgets/bigtext.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+  final bool showFloatingActionButton;
+  const AccountPage({super.key,this.showFloatingActionButton = false});
 
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -76,6 +78,13 @@ class _AccountPageState extends State<AccountPage> {
           ],
         ),
       ),
+           floatingActionButton: widget.showFloatingActionButton ? FloatingActionButton(
+        onPressed: () {
+          Get.to(() => CartPage());
+        },
+        child: Icon(Icons.shopping_cart_outlined),
+        backgroundColor: AppColors.mainColor,
+      ) : null,
     );
   }
 

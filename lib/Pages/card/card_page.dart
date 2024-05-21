@@ -279,7 +279,7 @@ import 'package:get/get.dart';
           TextButton(
             onPressed: () {
               // Here, you could also handle the confirmation logic, e.g., finalizing the order
-              cartController.addToHistory();
+              
               Get.toNamed(RouteHelper.getAddressPage());
                // Close the dialog after handling the action
             },
